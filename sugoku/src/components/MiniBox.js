@@ -25,16 +25,16 @@ export default function MiniBox(props) {
 const styles = StyleSheet.create({
   miniBox: {
     flex: 1,
-    height:40,
+    height:30,
     textAlign: "center",
     borderWidth: 1
   },
   text:{
-    height:40,
+    height:30,
     paddingTop: 10
   },
   input:{
-    height:40,
+    height:30,
     textAlign: "center",
   }
 });

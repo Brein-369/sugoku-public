@@ -2,50 +2,22 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import {Provider, useDispatch, useSelector} from 'react-redux'
-// import store from './store'
-import {setBoard} from './store/actions'
-import MiniBox from './components/MiniBox'
-import RowContainer from './components/RowContainer'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './src/screen/Home'
+import Game from './src/screen/Game'
+import Finish from './src/screen/Finish'
 
 export default function App() {
-  // const board = useSelector(state=> state.board)
-  // const dispatch = useDispatch()
-  const [board, setBoard] = useState([])
-  useEffect(()=>{
-    fetch('https://sugoku.herokuapp.com/board?difficulty=easy')
-    .then(res=>res.json())
-    .then(data=>{
-      setBoard(data.board)
-    })
-  },[])
+  const Stack = createStackNavigator()
   return (
-    // <Provider store={store}>
-
-    // </Provider>
-    
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.title}>SUGOKU !</Text>
-      </View>
-      <View style={styles.sudokuCont}>
-        {
-          board.map((row,iRow)=>{
-            return <View style={styles.oneRow}>
-              {
-                // row
-                row.map((number,iCol)=>{
-                  return <MiniBox number={number} style={styles.miniBox}>
-                  </MiniBox>
-                })
-              }
-              </View>
-          })
-        }
-      </View>
-      <View>
-        <Text>Choose Level</Text>
-      </View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name="Home" component={Home}></Stack.Screen>
+        <Stack.Screen name="Game" component={Game}></Stack.Screen>
+        <Stack.Screen name="Finish" component={Finish}></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
