@@ -1,23 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import {Provider, useDispatch, useSelector} from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screen/Home'
 import Game from './src/screen/Game'
 import Finish from './src/screen/Finish'
+import {Provider, useDispatch, useSelector} from 'react-redux'
+import store from './store'
 
 export default function App() {
   const Stack = createStackNavigator()
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
-        <Stack.Screen name="Game" component={Game}></Stack.Screen>
-        <Stack.Screen name="Finish" component={Finish}></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen name="Home" component={Home}></Stack.Screen>
+          <Stack.Screen name="Game" component={Game}></Stack.Screen>
+          <Stack.Screen name="Finish" component={Finish}></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
