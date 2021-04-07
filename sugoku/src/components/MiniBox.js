@@ -5,6 +5,7 @@ import {Provider, useDispatch, useSelector} from 'react-redux'
 import {setUserBoard} from '../../store/actions'
 
 export default function MiniBox(props) {
+    const originalBoard = useSelector(state => state.board)
     const solved = useSelector(state=> state.solvedCondition)
     const dispatch = useDispatch()
     const {number, row, col} = props
@@ -25,20 +26,21 @@ export default function MiniBox(props) {
             {   
                 
                 solved?
-                <Text style={styles.text}>{number}</Text>
+                <TextInput editable={ originalBoard[row][col] == 0 ? true : false } style={styles.text} onChangeText={userNumber => setMiniBox(Number(userNumber))}>{number}</TextInput>
+                // <Text style={styles.text}>{number}</Text>
                 :
                 number ?
                   numberMiniBox ?
-                    <TextInput style={styles.input} onChangeText={userNumber => setMiniBox(Number(userNumber))}
+                    <TextInput style={styles.input} maxLength={1} multiline={false} onChangeText={userNumber => setMiniBox(Number(userNumber))}
                     keyboardType = 'numeric' value={`${numberMiniBox}`}></TextInput>
                     :
                     <Text style={styles.text}>{number}</Text>
                   :    
                   numberMiniBox ?
-                    <TextInput style={styles.input} onChangeText={userNumber => setMiniBox(Number(userNumber))}
-                    keyboardType = 'numeric'  value={'NaN'}></TextInput>
+                    <TextInput style={styles.input} maxLength={1} multiline={false}  onChangeText={userNumber => setMiniBox(Number(userNumber))}
+                    keyboardType = 'numeric' value={`${numberMiniBox}`}></TextInput>
                     :
-                    <TextInput style={styles.input} onChangeText={userNumber => setMiniBox(Number(userNumber))}
+                    <TextInput style={styles.input} maxLength={1} multiline={false} onChangeText={userNumber => setMiniBox(Number(userNumber))}
                     keyboardType = 'numeric'></TextInput>
                 
 

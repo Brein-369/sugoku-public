@@ -1,10 +1,20 @@
-import React, { Component, useState } from 'react'
-import { Text, View, TextInput, Button, StyleSheet} from 'react-native'
+import React, { Component, useState, useEffect } from 'react'
+import { ImageBackground, Image,Text, View, TextInput, Button, StyleSheet, Dimensions} from 'react-native'
+import {useFocusEffect} from '@react-navigation/native'
 
 export default function Home(props) {
     const [choosenLevel, setChoosenLevel] =useState('easy')
     const [playerName, setPlayerName] = useState('')
+    // const windowWidth = Dimensions.get('window').width;
+    // const windowHeight = Dimensions.get('window').height;
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log("usefocus effect<<<");
+            setPlayerName('')
+        }, [])
+      );
     function goToGame(){
+        setPlayerName('')
         props.navigation.navigate('Game', {
             name: playerName,
             level: choosenLevel
@@ -15,16 +25,17 @@ export default function Home(props) {
     }
     return (
         <View style={styles.container} >
-            <Text style={styles.title}> Welcome to Sugoku </Text>
+            {/* <ImageBackground source={{ uri: "https://imgur.com/eb941aff-60c1-40f0-aa5e-6f05ba6e84ea" }} style={{ width: windowWidth, height: windowHeight }}/> */}
+            <Image source={{ uri: "https://i.imgur.com/pv68lmb.png" }} style={{ width: 150, height: 150 }} />
+            {/* <Text style={styles.title}> Welcome to Sugoku </Text> */}
             <View>
                 <TextInput
-                    style={styles.playerNameInput}
-                    placeholder="Insert Name Here"
+                    style={styles.playerInput}
+                    placeholder="Insert Name"
+                    value={playerName}
                     onChangeText={text => setPlayerName(text)}
                 ></TextInput>
-            </View>
-            <View>
-                <Text>
+                <Text style={styles.playerNameInput}>
                     Choosen Level: 
                 </Text>
                 <Text style={styles.levelText}>
@@ -83,16 +94,23 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems:'center',
         justifyContent: 'space-around',
+        backgroundColor: '#ebf4fa'
         // alignItems:'center'
     },
     title:{
         fontSize:30,
+        fontWeight: "bold"
         // textAlign:'center'
     },
     playerNameInput:{
         fontSize:20,
-        textAlign:'center'
-
+        textAlign:'center',
+        fontWeight: "bold"
+    },
+    playerInput:{
+        fontSize:20,
+        textAlign:'center',
+        borderBottomWidth:1
     },
     levelText:{
         fontSize :20,

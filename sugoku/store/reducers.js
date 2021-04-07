@@ -1,7 +1,8 @@
 const initialState ={
     board: [],
     userBoard:[],
-    solvedCondition: false
+    solvedCondition: false,
+    leaderboard:[]
 }
 
 function reducer(state= initialState, action){
@@ -22,11 +23,15 @@ function reducer(state= initialState, action){
     }
     else if (type === 'userBoard/setUserBoard'){
         console.log(payload, 'payload di set one userboard reducers');
+        console.log(state.board, 'Board di reducers');
         console.log(state.userBoard, 'userBoard di reducers');
         return {...state, 
             userBoard:[...state.userBoard], 
             ...state.userBoard[payload.row][payload.col]= payload.userNumber 
         }
+    }
+    else if(type==="leaderboard/addLeaderboard"){
+        return{...state, leaderboard:[...state.leaderboard,payload]}
     }
     return state
 }

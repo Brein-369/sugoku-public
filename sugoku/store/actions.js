@@ -3,8 +3,8 @@ export function setBoard(level){
         fetch(`https://sugoku.herokuapp.com/board?difficulty=${level}`)
         .then(res=>res.json())
         .then(data=>{
-          dispatch({type:'board/setBoard', payload : data.board})
-          dispatch({type:'userBoard/setInitialUserBoard', payload: data.board})
+          dispatch({type:'board/setBoard', payload : JSON.parse(JSON.stringify(data.board))})
+          dispatch({type:'userBoard/setInitialUserBoard', payload: JSON.parse(JSON.stringify(data.board))})
         })
         .catch(err=>{
             console.log(err);
@@ -36,3 +36,10 @@ export function setUserBoard(data){
         dispatch({type:'userBoard/setUserBoard', payload:data})
     }
 }
+
+
+export function addLeaderboard(data){
+    return (dispatch)=>{
+        dispatch({type:'leaderboard/addLeaderboard', payload:data})
+    }
+} 
